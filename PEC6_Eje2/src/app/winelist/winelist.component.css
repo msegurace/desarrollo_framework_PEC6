@@ -1,0 +1,10 @@
+*{
+    font-family: Arial, Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.wines-container {
+    display: inline-block;
+    margin-right: 20px;
+  }
+
+  
