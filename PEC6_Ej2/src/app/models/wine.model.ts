@@ -1,6 +1,7 @@
 import { Food } from "./food.model";
 
 interface WineInterface {
+    id: number,
     name: string;
     imageUrl: string;
     price: number;
@@ -10,7 +11,7 @@ interface WineInterface {
 }
 
 export class Wine {
-    public id?: string;
+    public id: number;
     public name: string;
     public imageUrl: string;
     public price: number;
@@ -18,7 +19,8 @@ export class Wine {
     public quantityInCart: number;
     public foodPairing: Food[];
 
-    constructor ( { name, imageUrl, price, isOnSale, quantityInCart, foodPairing}: WineInterface = {
+    constructor ( { id, name, imageUrl, price, isOnSale, quantityInCart, foodPairing}: WineInterface = {
+        id: 0,
         name: '', 
         imageUrl: '',
         price: 0,
@@ -26,7 +28,7 @@ export class Wine {
         quantityInCart: 0,
         foodPairing: []
     }) {
-        this.id = undefined;
+        this.id = id;
         this.name = name;
         this.imageUrl = imageUrl;
         this.price = price;

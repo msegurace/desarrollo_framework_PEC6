@@ -1,0 +1,15 @@
+<div>
+    <input type="text"
+           placeholder="Search products"
+           name="searchBox"
+           [(ngModel)]="searchString"
+           (keyup)="search()"/>
+  </div>
+  
+<h2>
+     We have found {{(wines$ | async)?.length}} wines! -->
+  </h2>
+
+<div class="wines-container" *ngFor="let wine of wines$ | async;">
+    <app-wineitem [wine]="wine"></app-wineitem>
+</div> 

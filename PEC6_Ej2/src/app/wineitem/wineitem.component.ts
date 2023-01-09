@@ -6,13 +6,13 @@ import { WineQuantityChange } from '../models/winequantitychange.model';
   selector: 'app-wineitem',
   template: `
     <div class="wine-card" 
-        [ngClass]="{'insale': wine.isOnSale, 'notsale': !wine.isOnSale}">
+        [ngClass]="{'insale': wine!.isOnSale, 'notsale': !wine!.isOnSale}">
         <img src="{{ wine!.imageUrl }}" alt="Imagen botella de vino" />
-        <p>{{ wine.name }}</p>
-        <p>{{ wine.price | number : '.2-2'}} €</p>
+        <p>{{ wine!.name }}</p>
+        <p>{{ wine!.price | number : '.2-2'}} €</p>
         <div class="wine-buttons">
-        <button *ngIf="wine.quantityInCart > 0" (click)="decrementInCart()">-</button>
-            <span>{{ wine.quantityInCart }}</span>
+        <button *ngIf="wine!.quantityInCart > 0" (click)="decrementInCart()">-</button>
+            <span>{{ wine!.quantityInCart }}</span>
             <button (click)="incrementInCart()">+</button>
         </div>
     </div>
@@ -51,18 +51,18 @@ import { WineQuantityChange } from '../models/winequantitychange.model';
 })
 export class WineitemComponent {
 
-  @Input() public wine: Wine = new Wine();
+  @Input() public wine?: Wine;
   @Output() public quantityChange: EventEmitter<WineQuantityChange> = new EventEmitter();
 
   constructor() {}
 
   incrementInCart() {
-    this.quantityChange.emit({ wine: this.wine, changeInQuantity: 1 });
+    this.quantityChange.emit({ wine: this.wine!, changeInQuantity: 1 });
   }
 
   decrementInCart() {
-    if (this.wine.quantityInCart > 0) {
-      this.quantityChange.emit({ wine: this.wine, changeInQuantity: -1 });
+    if (this.wine!.quantityInCart > 0) {
+      this.quantityChange.emit({ wine: this.wine!, changeInQuantity: -1 });
     }
   }
 

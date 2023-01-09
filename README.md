@@ -11,5 +11,9 @@
 import { of as ObservableOf } from 'rxjs'
 import { throw as ObservableThrow } from 'rxjs'; 
 * Tuve problemas con el método .subscribe porque también daba "deprecated" debido a que ya no espera argumentos de callback sino un observer.
-* 
+
+
+Ejercicio 4:
+No refresca
+pierde el valor después de refresh
 

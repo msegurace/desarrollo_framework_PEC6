@@ -12,17 +12,27 @@ import { WineServiceService } from '../wine-service.service';
 export class WineNewComponent {
 
   public wineForm!: FormGroup;
-  public wine: Wine = new Wine();
+  public wine: Wine;
 
   constructor(private fb: FormBuilder, private wineService: WineServiceService) {       
     this.createForm();
+    this.wine = {
+      id: 0,
+      name: '', 
+      imageUrl: '',
+      price: 0,
+      isOnSale: false,
+      quantityInCart: 0,
+      foodPairing: []
+    }
   }
 
+  
   createForm() {
     this.wineForm = this.fb.group({             
       name: [null, [Validators.required, new CustomWineValidator()]],
       price: [0, [Validators.required, Validators.min(1), Validators.pattern('^[0-9]*$')]],
-      imageUrl: ['', [Validators.required, Validators.pattern('^http(s?):\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?$')]],
+      imageUrl: ['assets/images/wine3.jpg', [Validators.required]],
       isOnSale: [null, null]
     });
   }
@@ -31,7 +41,7 @@ export class WineNewComponent {
     console.log('Wine form', this.wineForm.value);
     if (this.wineForm.valid) {
       this.wine = this.wineForm.value;
-      console.log('on submit' + this.wine);
+      console.log('on submit: ' + this.wine.name + ' ' + this.wine.price);
       this.wineService.create(this.wine)
           .subscribe({complete: console.info});
     } else {

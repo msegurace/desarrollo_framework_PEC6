@@ -13,7 +13,7 @@ export class WineServiceService {
   wines: Wine[] = [];
   constructor() { }
 
-  changeQuantity(wineID: string, changeInQuantity: number): Observable<Wine> {
+  changeQuantity(wineID: number, changeInQuantity: number): Observable<Wine> {
     console.log('Wine Quantity change triggered for ' + wineID + ' - ' + changeInQuantity);
 
     let wine = this.wines.find(w => w.id === wineID);
@@ -22,31 +22,21 @@ export class WineServiceService {
 
   }
 create(wine: Wine): Observable<any> {
-  wine.id=this.uuidv4();
+  wine.id = this.wines.length + 1;
   let found = this.wines.find(w => w.id === wine.id);
     if (found) {
       return throwError(() => new Error('Stock with code ' +  wine.id + ' already exists'));
     }
     wine.imageUrl = "assets/botella.jpg";
-    wine.quantityInCart =  1;
+    wine.quantityInCart =  0;
     this.wines.push(wine);
     return ObservableOf({msg: 'Wine with ID ' + wine.id +
         ' successfully created'});;
 }
 
-//La trata como una propiedad en vez de un método y no sé por qué
-    //para solventarlo lo pongo como opcional
-    uuidv4() {
-      return (([1e7] as any) + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c: number) =>
-        (
-          c ^
-          (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
-        ).toString(16)
-      );
-    }
-
   getWines(): Observable<Wine[]> {
     this.wines.push(new Wine({
+      id: 1,
       name: "Tajinaste Tinto 2021",
       imageUrl: "assets/botella.jpg",
       isOnSale: true,
@@ -56,6 +46,7 @@ create(wine: Wine): Observable<any> {
     }));
 
     this.wines.push(new Wine({
+      id: 2,
       name: "Araucaria 2022",
       imageUrl: "assets/botella.jpg",
       isOnSale: true,
@@ -65,6 +56,7 @@ create(wine: Wine): Observable<any> {
     }));
 
     this.wines.push(new Wine({
+      id: 3,
       name: "El Grifo 2022",
       imageUrl: "assets/botella.jpg",
       isOnSale: false,
