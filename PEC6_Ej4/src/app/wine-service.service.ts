@@ -9,14 +9,15 @@ import { Wine } from './models/wine.model';
   providedIn: 'root'
 })
 export class WineServiceService {
-  BASE_URL="http://localhost:3000"
+  BASE_URL="http://localhost:3000";
   wines: Wine[] = [];
 
   constructor(private http: HttpClient) { }
 
   getWines(query: string): Observable<Wine[]> {
     return this.http.get<Wine[]>(this.BASE_URL + '/api/wine', {
-      params: {q: query}
+      params: {q: query},
+      observe: 'body'
     });
   }
 
@@ -29,7 +30,7 @@ export class WineServiceService {
     
     return this.http.patch<Wine>(this.BASE_URL + '/api/wine/' + wine.id,
     {
-      changeInQuantity: wine.quantityInCart
+      changeInQuantity: changeInQuantity
     });
 
   }

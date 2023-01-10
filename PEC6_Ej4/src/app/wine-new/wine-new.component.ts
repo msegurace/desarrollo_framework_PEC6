@@ -44,6 +44,7 @@ export class WineNewComponent {
       console.log('on submit: ' + this.wine.name + ' ' + this.wine.price);
       this.wineService.create(this.wine)
           .subscribe({complete: console.info});
+      this.wineForm.reset();
     } else {
       this.wineForm.markAllAsTouched();
       console.error('Wine form is in an invalid state');
