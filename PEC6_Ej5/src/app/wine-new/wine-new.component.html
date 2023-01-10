@@ -1,0 +1,47 @@
+<h2>Create new Wine</h2>
+<div class="form-group">
+    <form [formGroup]="wineForm" (ngSubmit)="onSubmit()">
+        <div class="wine-name">
+            <input type="text" placeholder="wine Name" name="wineName" formControlName="name" aria-label="name">
+        </div>
+        <div class="error" *ngIf="wineForm.get('name')?.invalid &&     
+            (wineForm.get('name')?.dirty || wineForm.get('name')?.touched )">
+            <div *ngIf="wineForm.get('name')?.getError('required')">
+                The Wine name is required
+            </div>
+            <div *ngIf="!wineForm.get('name')?.getError('required') && wineForm.get('name')?.invalid">
+                The name of the wine you typed is invalid
+            </div>
+        </div>
+        <div class="wine-price">
+            <input type="text" placeholder="wine Price" formControlName="price" aria-label="price">
+        </div>
+        <div class="error" *ngIf="wineForm.get('price')?.invalid &&     
+            (wineForm.get('price')?.dirty || wineForm.get('price')?.touched )">
+            <div *ngIf="wineForm.get('price')?.getError('required')">
+                Stock Price is required
+            </div>
+            <div *ngIf="wineForm.get('price')?.getError('min')">
+                Stock Price must be at least 1€
+            </div>
+            <div *ngIf="wineForm.get('price')?.getError('pattern')">
+                Stock Price must be numeric and greater than 1.
+            </div>
+        </div>
+        <div class="wine-imageurl">
+            <input type="text" placeholder="Wine Image URL" formControlName="imageUrl" aria-label="Image Url">
+        </div>
+        <div class="error" *ngIf="wineForm.get('imageUrl')?.invalid &&     
+            (wineForm.get('imageUrl')?.dirty || wineForm.get('imageUrl')?.touched )">
+            <div *ngIf="wineForm.get('imageUrl')?.getError('required')">
+                Image Url is required
+            </div>
+        </div>
+        <div class="wine-isonsale">
+            <input type="checkbox" formControlName="isOnSale" aria-label="Is On Sale">
+
+            <label for="isOnSale">On Sale</label>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
